@@ -31,14 +31,14 @@ class _LoginPageState extends State<LoginPage> {
             margin: EdgeInsets.all(10),
             child: CustomTextfield(
               myHint: "input username",
-              txtcontroller: txtUsername,
+              txtController: txtUsername,
             ),
           ),
           Container(
             margin: EdgeInsets.all(10),
             child: CustomTextfield(
               myHint: "input password",
-              txtcontroller: txtPassword,
+              txtController: txtPassword,
               obscureText: true,
             ),
           ),

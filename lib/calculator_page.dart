@@ -1,158 +1,81 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_application_test/controllers/calculator_controller.dart';
+import 'package:flutter_application_test/components/custom_textfield.dart';
+import 'package:flutter_application_test/components/custom_page.dart';
 
-class CalculatorPage extends StatefulWidget {
-  const CalculatorPage({super.key});
+class CalculatorPage extends StatelessWidget {
+  CalculatorPage({super.key});
 
-  @override
-  State<CalculatorPage> createState() => _CalculatorPageState();
-}
+  final controller = Get.put(CalculatorController());
+  final txtangka1 = TextEditingController();
+  final txtangka2 = TextEditingController();
 
-class _CalculatorPageState extends State<CalculatorPage> {
-  final TextEditingController a1Controller = TextEditingController();
-  final TextEditingController a2Controller = TextEditingController();
+  // validasi + jalankan operasi
+  void hitung(void Function(double, double) operasi) {
+    final a = double.tryParse(txtangka1.text);
+    final b = double.tryParse(txtangka2.text);
 
-  String hasil = '0';
-
-  @override
-  void dispose() {
-    a1Controller.dispose();
-    a2Controller.dispose();
-    super.dispose();
-  }
-
-  bool _validasiInput() {
-    final a1 = double.tryParse(a1Controller.text);
-    final a2 = double.tryParse(a2Controller.text);
-
-    if (a1 == null || a2 == null) {
-      setState(() {
-        hasil = 'Input tidak valid';
-      });
-      return false;
-    }
-    return true;
-  }
-
-  void tambah() {
-    if (!_validasiInput()) return;
-    final a1 = double.parse(a1Controller.text);
-    final a2 = double.parse(a2Controller.text);
-    setState(() => hasil = _formatHasil(a1 + a2));
-  }
-
-  void kurang() {
-    if (!_validasiInput()) return;
-    final a1 = double.parse(a1Controller.text);
-    final a2 = double.parse(a2Controller.text);
-    setState(() => hasil = _formatHasil(a1 - a2));
-  }
-
-  void kali() {
-    if (!_validasiInput()) return;
-    final a1 = double.parse(a1Controller.text);
-    final a2 = double.parse(a2Controller.text);
-    setState(() => hasil = _formatHasil(a1 * a2));
-  }
-
-  void bagi() {
-    if (!_validasiInput()) return;
-    final a1 = double.parse(a1Controller.text);
-    final a2 = double.parse(a2Controller.text);
-
-    if (a2 == 0) {
-      setState(() => hasil = 'Tidak bisa dibagi 0');
+    if (a == null || b == null) {
+      Get.snackbar("Warning", "Angka 1 dan angka 2 tidak boleh kosong");
       return;
     }
-    setState(() => hasil = _formatHasil(a1 / a2));
-  }
-
-  String _formatHasil(double value) {
-    if (value == value.toInt()) {
-      return value.toInt().toString();
-    }
-    return value.toString();
+    operasi(a, b);
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('My Calculator'),
-        centerTitle: false,
-      ),
-      body: SingleChildScrollView(
+    return CustomPage(
+      title: "My kalkulator",
+      child: Padding(
         padding: const EdgeInsets.all(16),
-        child: Card(
-          elevation: 2,
-          child: Padding(
-            padding: const EdgeInsets.all(20),
-            child: Column(
+        child: Column(
+          children: [
+            CustomTextfield(
+              myHint: "input angka 1",
+              txtController: txtangka1,
+              keyboardType: TextInputType.number,
+              inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+
+            ),
+            const SizedBox(height: 10),
+            CustomTextfield(
+              myHint: "input angka 2",
+              txtController: txtangka2,
+              keyboardType: TextInputType.number,
+              inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+            ),
+            const SizedBox(height: 10),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                TextField(
-                  controller: a1Controller,
-                  keyboardType:
-                      const TextInputType.numberWithOptions(decimal: true),
-                      inputFormatters: <TextInputFormatter>[
-                        FilteringTextInputFormatter.allow(RegExp(r'[0-9.]')),
-                      ],
-                  decoration: const InputDecoration(
-                    labelText: 'A1',
-                    border: OutlineInputBorder(),
-                  ),
+                ElevatedButton(
+                  onPressed: () => hitung(controller.tambah),
+                  child: const Text("+"),
                 ),
-                const SizedBox(height: 16),
-                TextField(
-                  controller: a2Controller,
-                  keyboardType:
-                      const TextInputType.numberWithOptions(decimal: true),
-                      inputFormatters: <TextInputFormatter>[
-                        FilteringTextInputFormatter.allow(RegExp(r'[0-9.]')),
-                      ],
-                  decoration: const InputDecoration(
-                    labelText: 'A2',
-                    border: OutlineInputBorder(),
-                  ),
+                ElevatedButton(
+                  onPressed: () => hitung(controller.kurang),
+                  child: const Text("-"),
                 ),
-                const SizedBox(height: 24),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    ElevatedButton(
-                      onPressed: tambah,
-                      child: const Text('+'),
-                    ),
-                    ElevatedButton(
-                      onPressed: kurang,
-                      child: const Text('-'),
-                    ),
-                    ElevatedButton(
-                      onPressed: kali,
-                      child: const Text('x'),
-                    ),
-                    ElevatedButton(
-                      onPressed: bagi,
-                      child: const Text('/'),
-                    ),
-                  ],
+                ElevatedButton(
+                  onPressed: () => hitung(controller.kali),
+                  child: const Text("×"),
                 ),
-                const SizedBox(height: 24),
-                const Text(
-                  'Hasil:',
-                  style: TextStyle(fontSize: 18),
-                ),
-                const SizedBox(height: 8),
-                Text(
-                  hasil,
-                  style: const TextStyle(
-                    fontSize: 40,
-                    fontWeight: FontWeight.bold,
-                  ),
-                  textAlign: TextAlign.center,
+                ElevatedButton(
+                  onPressed: () => hitung(controller.bagi),
+                  child: const Text("÷"),
                 ),
               ],
             ),
-          ),
+            const SizedBox(height: 20),
+            Obx(
+              () => Text(
+                "hasil ${controller.hasilHitung.value}",
+                style: const TextStyle(fontSize: 20),
+              ),
+            ),
+          ],
         ),
       ),
     );
