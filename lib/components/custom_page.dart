@@ -21,7 +21,7 @@ class CustomPage extends StatelessWidget {
     required this.title,
     required this.child,
     this.backgroundColor = const Color(0xFFF5F7FB),
-    this.appBarColor = const Color(0xFF2E09B6),
+    this.appBarColor = const Color.fromARGB(255, 5, 236, 20),
     this.centerTitle = true,
     this.padding = const EdgeInsets.all(16),
     this.actions,
