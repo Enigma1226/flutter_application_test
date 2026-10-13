@@ -4,7 +4,7 @@ import 'package:flutter_application_test/models/makanan_model.dart';
 class MakananCard extends StatelessWidget {
   final MakananModel makanan;
   final VoidCallback onTap;
-  final int? nomor; // opsional: badge nomor urut
+  final int? nomor; //? boleh kosong
 
   const MakananCard({
     super.key,
@@ -19,14 +19,14 @@ class MakananCard extends StatelessWidget {
       elevation: 2,
       margin: const EdgeInsets.only(bottom: 12),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-      clipBehavior: Clip.antiAlias,
+      clipBehavior: Clip.antiAlias, // Memotong konten bagian dalam agar melengkung rapi
       child: InkWell(
         onTap: onTap,
         child: Padding(
           padding: const EdgeInsets.all(10),
           child: Row(
             children: [
-              // Foto + badge nomor (kalau ada)
+             
               Stack(
                 children: [
                   ClipRRect(
@@ -65,8 +65,7 @@ class MakananCard extends StatelessWidget {
               ),
               const SizedBox(width: 12),
 
-              // Nama, deskripsi, harga, rating
-              Expanded(
+              Expanded( // agar teks di dalamnya memanfaatkan sisa ruang dan tidak eror meluber ke kanan
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [

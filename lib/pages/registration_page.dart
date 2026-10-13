@@ -20,12 +20,12 @@ class RegistrationPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return CustomPage(
       title: 'Registration',
-      scrollable: false, // <- membuat isi berada di tengah layar
-      child: SingleChildScrollView( // <- agar tidak overflow saat keyboard muncul
+      scrollable: false, //membuat isi berada di tengah layar
+      child: SingleChildScrollView( //agar tidak overflow saat keyboard muncul
         child: Column(
-          mainAxisSize: MainAxisSize.min, // <- setinggi isinya saja
+          mainAxisSize: MainAxisSize.min, //ukuran kolom menyesuaikan isi
           children: [
-            // Logo / gambar user
+            //gambar user
             const CircleAvatar(
               radius: 70,
               backgroundColor: Color(0xFFEDE9FE),
