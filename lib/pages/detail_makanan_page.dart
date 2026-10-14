@@ -1,23 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:flutter_application_test/models/makanan_model.dart';
+import 'package:flutter_application_test/controllers/detail_makanan_controller.dart';
 
 class DetailMakananPage extends StatelessWidget {
   const DetailMakananPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final MakananModel makanan = Get.arguments as MakananModel;
+     final controller = Get.put(DetailMakananController());
 
     return Scaffold(
-      appBar: AppBar(title: Text(makanan.namaMakanan)),
+      appBar: AppBar(title: Text(controller.makanan.namaMakanan)),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // Foto makanan
           Image.network(
-            makanan.gambar,
+            controller.makanan.gambar,
             width: double.infinity,
             height: 250,
             fit: BoxFit.cover,
@@ -37,7 +37,7 @@ class DetailMakananPage extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    makanan.namaMakanan,
+                    controller.makanan.namaMakanan,
                     style: const TextStyle(
                       fontSize: 24,
                       fontWeight: FontWeight.bold,
@@ -48,12 +48,12 @@ class DetailMakananPage extends StatelessWidget {
                     children: [
                       const Icon(Icons.star, color: Colors.amber),
                       const SizedBox(width: 4),
-                      Text(makanan.rating),
+                      Text(controller.makanan.rating),
                     ],
                   ),
                   const SizedBox(height: 8),
                   Text(
-                    makanan.harga,
+                    controller.makanan.harga,
                     style: const TextStyle(fontSize: 20, color: Colors.green),
                   ),
                   const SizedBox(height: 16),
@@ -63,7 +63,7 @@ class DetailMakananPage extends StatelessWidget {
                   ),
                   const SizedBox(height: 8),
                   Text(
-                    makanan.deskripsi,
+                    controller.makanan.deskripsi,
                     style: const TextStyle(fontSize: 16, height: 1.5),
                   ),
                 ],
