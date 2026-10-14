@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import 'package:flutter_application_test/components/custom_page.dart';
 import 'package:flutter_application_test/widgets/makanan_card.dart';
 import 'package:flutter_application_test/controllers/list_makanan_controller.dart';
-import 'package:flutter_application_test/pages/detail_makanan_page.dart';
 
 class ListMakananPage extends StatelessWidget {
   const ListMakananPage({super.key});
