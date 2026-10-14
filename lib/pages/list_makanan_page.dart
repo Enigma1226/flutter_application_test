@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_test/routes.dart';
 import 'package:get/get.dart';
 import 'package:flutter_application_test/components/custom_page.dart';
 import 'package:flutter_application_test/widgets/makanan_card.dart';
@@ -22,10 +23,7 @@ class ListMakananPage extends StatelessWidget {
           return MakananCard(
             makanan: makanan,
             onTap: () {
-              Get.to(
-                () => const DetailMakananPage(),
-                arguments: makanan,
-              );
+              Get.toNamed(Routes.detail_makanan, arguments: makanan);
             },
           );
         },
