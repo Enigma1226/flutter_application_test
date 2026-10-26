@@ -15,17 +15,22 @@ class ListMakananPage extends StatelessWidget {
     return CustomPage(
       title: "Daftar Makanan",
       scrollable: false,
-      child: ListView.builder(
-        itemCount: controller.dataMakanan.length,
-        itemBuilder: (context, index) {
-          final makanan = controller.dataMakanan[index];
-          return MakananCard(
-            makanan: makanan,
-            onTap: () {
-              Get.toNamed(Routes.detail_makanan, arguments: makanan);
-            },
-          );
-        },
+      child: Obx(
+        () => ListView.builder(
+          itemCount: controller.dataMakanan.length,
+          itemBuilder: (context, index) {
+            final makanan = controller.dataMakanan[index];
+            return MakananCard(
+              makanan: makanan,
+              onTap: () {
+                Get.toNamed(Routes.detail_makanan, arguments: makanan);
+              },
+              onDismissed: () {
+                controller.dataMakanan.remove(makanan);
+              },
+            );
+          },
+        ),
       ),
     );
   }

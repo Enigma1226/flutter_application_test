@@ -5,17 +5,19 @@ class MakananCard extends StatelessWidget {
   final MakananModel makanan;
   final VoidCallback onTap;
   final int? nomor; //? boleh kosong
+  final VoidCallback? onDismissed;
 
   const MakananCard({
     super.key,
     required this.makanan,
     required this.onTap,
     this.nomor,
+    this.onDismissed,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Card(
+    final card = Card(
       elevation: 2,
       margin: const EdgeInsets.only(bottom: 12),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
@@ -110,6 +112,23 @@ class MakananCard extends StatelessWidget {
           ),
         ),
       ),
+    );
+
+    if (onDismissed == null) {
+      return card;
+    }
+
+    return Dismissible(
+      key: ValueKey(makanan.namaMakanan),
+      direction: DismissDirection.startToEnd,
+      background: Container(
+        color: Colors.red,
+        alignment: Alignment.centerLeft,
+        padding: const EdgeInsets.only(left: 16),
+        child: const Icon(Icons.delete, color: Colors.white),
+      ),
+      onDismissed: (_) => onDismissed!.call(),
+      child: card,
     );
   }
 }
