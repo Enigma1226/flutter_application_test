@@ -5,8 +5,10 @@ import 'package:flutter_application_test/pages/list_makanan_page.dart';
 import 'package:flutter_application_test/pages/detail_makanan_page.dart';
 import 'package:flutter_application_test/pages/main_menu.dart';
 import 'package:flutter_application_test/login_page.dart';
+import 'package:flutter_application_test/pages/login_clone_ex_app_page.dart';
 
 class Routes {
+  static const String login_clone_page = "/login_clone";
   static const String login_page = "/login";
   static const String registration = "/registration";
   static const String confirm_registration = "/confirm_registration";
@@ -17,6 +19,7 @@ class Routes {
 
   // kita masukkan ke dalam myPages array
   static final myPages = [
+    GetPage(name: login_clone_page, page: () => LoginClone()),
     GetPage(name: login_page, page: () => LoginPage()),
     GetPage(name: registration, page: () => RegistrationPage()),
     GetPage(name: confirm_registration, page: () => ConfirmRegistrationPage()),

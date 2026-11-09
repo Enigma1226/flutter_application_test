@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+import 'package:flutter_application_test/pages/main_menu.dart';
 
 class LoginController extends GetxController {
 
@@ -32,6 +33,7 @@ class LoginController extends GetxController {
         final data = jsonDecode(response.body);
         if(data['status'] == true){
           Get.snackbar("berhasil", data ['message']);
+          Get.off(() => MainMenu());
         }else{
           Get.snackbar("gagal", data ['message']);
         }
