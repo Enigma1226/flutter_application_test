@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       title: 'Belajar GetX',
-      initialRoute: Routes.login_clone_page,
+      initialRoute: Routes.main_menu2,
       getPages: Routes.myPages,
     );
   }

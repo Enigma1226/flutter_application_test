@@ -6,6 +6,7 @@ import 'package:flutter_application_test/pages/detail_makanan_page.dart';
 import 'package:flutter_application_test/pages/main_menu.dart';
 import 'package:flutter_application_test/login_page.dart';
 import 'package:flutter_application_test/pages/login_clone_ex_app_page.dart';
+import 'package:flutter_application_test/pages/menu_drawer.dart';
 
 class Routes {
   static const String login_clone_page = "/login_clone";
@@ -15,6 +16,7 @@ class Routes {
   static const String list_makanan = "/list_makanan";
   static const String detail_makanan = "/detail_makanan";
   static const String main_menu = "/main_menu";
+  static const String main_menu2 = "/menu_drawer";
   // dll
 
   // kita masukkan ke dalam myPages array
@@ -26,6 +28,7 @@ class Routes {
     GetPage(name: list_makanan, page: () => ListMakananPage()),
     GetPage(name: detail_makanan, page: () => DetailMakananPage()),
     GetPage(name: main_menu, page: () => MainMenu()),
+    GetPage(name: main_menu2, page: () => MainPage()),
     // dll
   ];
 }
